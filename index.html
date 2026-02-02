@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Modeler Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-white: #ffffff;
+            --bg-light-gray: #f5f5f5;
+            --bg-medium-gray: #e8e8e8;
+            --text-dark: #1a1a1a;
+            --text-gray: #666666;
+            --text-light-gray: #999999;
+            --border-light: #d9d9d9;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .header-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: var(--text-dark);
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            transition: color 0.3s ease;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            color: var(--text-dark);
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 3rem 4rem;
+            background: var(--bg-white);
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            color: var(--text-dark);
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .hero-meta {
+            font-size: 0.85rem;
+            color: var(--text-light-gray);
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            font-weight: 500;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: var(--text-dark);
+            color: var(--bg-white);
+        }
+
+        .btn-primary:hover {
+            background: var(--text-gray);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--text-dark);
+            color: var(--text-dark);
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            background: var(--text-dark);
+            color: var(--bg-white);
+            transform: translateY(-2px);
+        }
+
+        /* ABOUT */
+        .about {
+            padding: 8rem 3rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8rem;
+            align-items: start;
+        }
+
+        .about-text h2 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+            color: var(--text-dark);
+        }
+
+        .about-text p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .about-skills {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .skill-category h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .skill-category p {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            font-weight: 300;
+        }
+
+        .about-image {
+            background: var(--bg-light-gray);
+            aspect-ratio: 3/4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-light);
+        }
+
+        .about-image p {
+            color: var(--text-light-gray);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* PORTFOLIO */
+        .portfolio {
+            padding: 8rem 3rem;
+            background: var(--bg-white);
+        }
+
+        .portfolio-header {
+            max-width: 1600px;
+            margin: 0 auto 4rem;
+        }
+
+        .portfolio-header h2 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .portfolio-header p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: 3rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            border: 1px solid var(--border-light);
+            background: transparent;
+            color: var(--text-gray);
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn.active {
+            border-color: var(--text-dark);
+            color: var(--text-dark);
+            background: var(--text-dark);
+            color: var(--bg-white);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--text-dark);
+            color: var(--text-dark);
+        }
+
+        .gallery {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 3rem;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: var(--bg-light-gray);
+            cursor: pointer;
+            animation: fadeInScale 0.6s ease-out backwards;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.05s; }
+        .project-card:nth-child(2) { animation-delay: 0.1s; }
+        .project-card:nth-child(3) { animation-delay: 0.15s; }
+        .project-card:nth-child(4) { animation-delay: 0.2s; }
+        .project-card:nth-child(5) { animation-delay: 0.25s; }
+        .project-card:nth-child(6) { animation-delay: 0.3s; }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.33, 0.66, 0.66, 1);
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.02);
+        }
+
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2.5rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--bg-white);
+            font-weight: 500;
+        }
+
+        .project-category {
+            font-size: 0.7rem;
+            color: var(--bg-medium-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+        }
+
+        /* BADGE PRO */
+        .badge-pro {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #1a1a1a;
+            color: white;
+            padding: 4px 10px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 5;
+            border-radius: 2px;
+        }
+
+        /* COMPARISON SLIDER */
+        .comparison-slider {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            cursor: ew-resize;
+            background: #000;
+        }
+
+        .comparison-slider > img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .img-before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .img-before img {
+            display: block;
+            width: auto;
+            height: 100%;
+            max-width: none;
+        }
+
+        .img-before-label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 15;
+            font-weight: 600;
+        }
+
+        .img-after-label {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 4;
+            font-weight: 600;
+        }
+
+        .comparison-handle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: white;
+            cursor: ew-resize;
+            z-index: 10;
+            transform: translateX(-50%);
+        }
+
+        .comparison-handle::before {
+            content: '◀ ▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.95;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: #333;
+            letter-spacing: 2px;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.98);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            position: relative;
+            width: auto;
+            max-width: 90%;
+            max-height: 90vh;
+            background: black;
+            overflow-y: auto;
+        }
+
+        /* AI CAROUSEL SECTION */
+        .ai-carousel-section {
+            padding: 2rem;
+            background: #111;
+        }
+
+        .ai-carousel-title {
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .ai-carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .ai-carousel-track {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .ai-carousel-slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .ai-carousel-slide img {
+            max-width: 100%;
+            max-height: 50vh;
+            object-fit: contain;
+        }
+
+        .ai-carousel-container .carousel-btn {
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            z-index: 2001;
+            background: none;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            color: #ccc;
+        }
+
+        /* VIDEO MODAL */
+        .video-modal-content {
+            aspect-ratio: 16/9;
+            max-width: 1200px;
+            width: 90%;
+        }
+
+        .video-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* CAROUSEL MODAL */
+        .carousel-modal-content {
+            max-width: 1200px;
+            width: 90%;
+            aspect-ratio: auto;
+            max-height: 85vh;
+            background: transparent;
+        }
+
+        .modal-carousel {
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal-carousel .carousel-track {
+            height: 100%;
+        }
+
+        .modal-carousel .carousel-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-carousel .carousel-slide img {
+            max-width: 100%;
+            max-height: 85vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .modal-carousel .carousel-btn {
+            opacity: 1;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+        }
+
+        .modal-carousel .carousel-btn.prev {
+            left: -60px;
+        }
+
+        .modal-carousel .carousel-btn.next {
+            right: -60px;
+        }
+
+        @media (max-width: 900px) {
+            .modal-carousel .carousel-btn.prev {
+                left: 10px;
+            }
+            .modal-carousel .carousel-btn.next {
+                right: 10px;
+            }
+        }
+
+        /* PLAY ICON */
+        .play-icon {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* CAROUSEL INSTAGRAM STYLE */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-dark);
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* PLAY BUTTON FOR VIDEO IN CAROUSEL */
+        .carousel-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #333;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        .project-card:hover .carousel-play-btn {
+            opacity: 1;
+        }
+
+        .carousel-play-btn:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* LOCAL VIDEO MODAL */
+        .local-video-container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .local-video-container video {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+        }
+
+        .project-card:hover .carousel-btn {
+            opacity: 1;
+        }
+
+        .carousel-btn:hover {
+            background: white;
+        }
+
+        .carousel-btn.prev {
+            left: 10px;
+        }
+
+        .carousel-btn.next {
+            right: 10px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: white;
+        }
+
+        /* CONTACT */
+        .contact {
+            padding: 8rem 3rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .contact h2 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .contact > p {
+            color: var(--text-gray);
+            font-size: 1rem;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .contact-item a,
+        .contact-item p {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 300;
+        }
+
+        .contact-item a:hover {
+            color: var(--text-dark);
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 3rem;
+            border-top: 1px solid var(--border-light);
+            text-align: center;
+            color: var(--text-light-gray);
+            font-size: 0.8rem;
+            background: var(--bg-white);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .social-links {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-light-gray);
+            text-decoration: none;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--text-dark);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            nav {
+                gap: 1.5rem;
+                font-size: 0.75rem;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+                min-height: auto;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                padding: 4rem 1.5rem;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-content">
+            <div class="logo">3D Modeler</div>
+            <nav>
+                <a onclick="scrollTo('hero')">Home</a>
+                <a onclick="scrollTo('about')">About</a>
+                <a onclick="scrollTo('portfolio')">Work</a>
+                <a onclick="scrollTo('contact')">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1>Vitor Silva<br><span style="font-size: 0.5em; font-weight: 300;">3D Modeler</span></h1>
+            <p>3D Modeler specializing in character, asset & hard-surface design. Available for creative projects, commercials, and games.</p>
+            <div class="hero-meta">Beaux-Arts Porto • Escape Studios London • Autodesk Maya Certified</div>
+            
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="scrollTo('portfolio')">View Work</button>
+                <button class="btn btn-secondary" onclick="scrollTo('contact')">Get In Touch</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="about-text">
+            <h2>About</h2>
+            <p>Sculptor trained at Beaux-Arts Porto, I completed my 3D modeling and texturing expertise at Escape Studios in London. With solid experience in character modeling, asset design, and hard-surface assets, I've worked on prestigious projects including Olympic Games 2024 statues, 3D assets for Louis XIII Cognac campaign, and assets for audiovisual productions.</p>
+            
+            <p>I master the complete 3D pipeline: modeling, UV mapping, texturing, and optimization. Available as a freelancer for studios, creative agencies, and commercial projects.</p>
+
+            <div class="about-skills">
+                <div class="skill-category">
+                    <h3>Modeling</h3>
+                    <p>ZBrush • Maya • Blender</p>
+                </div>
+                <div class="skill-category">
+                    <h3>Texturing</h3>
+                    <p>Substance Painter • Mari • Photoshop</p>
+                </div>
+                <div class="skill-category">
+                    <h3>Specialties</h3>
+                    <p>Character • Asset • Hard-Surface</p>
+                </div>
+                <div class="skill-category">
+                    <h3>AI</h3>
+                    <p>ComfyUI • Flux</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-image">
+            <img src="profile-photo.jpg" alt="Vitor Silva" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section class="portfolio" id="portfolio">
+        <div class="portfolio-header">
+            <h2>Featured Work</h2>
+            <p>Selected projects showcasing expertise in 3D modeling and asset creation</p>
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+                <button class="filter-btn" onclick="filterProjects('character')">Character</button>
+                <button class="filter-btn" onclick="filterProjects('asset')">Asset</button>
+                <button class="filter-btn" onclick="filterProjects('hard-surface')">Hard-Surface</button>
+                <button class="filter-btn" onclick="filterProjects('ai-creative')">AI Creative</button>
+            </div>
+        </div>
+
+        <div class="gallery" id="gallery">
+            <!-- PROJECTS GENERATED HERE -->
+        </div>
+    </section>
+
+    <!-- COMPARISON MODAL -->
+    <div class="modal" id="comparisonModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeComparisonModal()">&times;</button>
+        </div>
+    </div>
+
+    <!-- VIDEO MODAL -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content video-modal-content">
+            <button class="modal-close" onclick="closeVideoModal()">&times;</button>
+            <div class="video-container" id="videoContainer"></div>
+        </div>
+    </div>
+
+    <!-- CAROUSEL MODAL -->
+    <div class="modal" id="carouselModal">
+        <div class="modal-content carousel-modal-content">
+            <button class="modal-close" onclick="closeCarouselModal()">&times;</button>
+            <div class="carousel-container modal-carousel" id="modalCarouselContainer">
+                <div class="carousel-track" id="modalCarouselTrack"></div>
+                <button class="carousel-btn prev" onclick="moveModalCarousel(-1)">‹</button>
+                <button class="carousel-btn next" onclick="moveModalCarousel(1)">›</button>
+                <div class="carousel-dots" id="modalCarouselDots"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <h2>Get In Touch</h2>
+        <p>Looking for a 3D modeler for your project? I'm available for freelance work with studios, agencies, and production companies.</p>
+
+        <div class="contact-info">
+            <div class="contact-item">
+                <h3>Email</h3>
+                <a href="mailto:mexes1978@live.com">mexes1978@live.com</a>
+            </div>
+            <div class="contact-item">
+                <h3>Phone</h3>
+                <p>+33 6 21 72 40 18</p>
+            </div>
+            <div class="contact-item">
+                <h3>Location</h3>
+                <p>Montpellier, France</p>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/vitor-silva-666207243">LinkedIn</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025. All rights reserved.</p>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        const projects = [
+            {
+                id: 1,
+                title: "Olympic Games 2024",
+                category: "character",
+                description: "3D Statue Modeling for Olympic Games 2024",
+                isCarousel: true,
+                hasVimeoVideo: true,
+                videoUrl: "https://player.vimeo.com/video/1037748737?h=2759859b7c",
+                images: [
+                    "jo2024.jpg"
+                ],
+                isPro: true
+            },
+            {
+                id: 9,
+                title: "Ninn",
+                category: "character",
+                description: "Character design",
+                isCarousel: true,
+                hasLocalVideo: true,
+                videoFile: "ninn-turntable.mp4",
+                images: [
+                    "ninn-1.jpg",
+                    "ninn-2.jpg",
+                    "ninn-3.jpg"
+                ]
+            },
+            {
+                id: 10,
+                title: "Pricha",
+                category: "character",
+                description: "Character modeling",
+                isCarousel: true,
+                images: [
+                    "pricha-1.jpg",
+                    "pricha-2.png",
+                    "pricha-3.png"
+                ]
+            },
+            {
+                id: 2,
+                title: "Louis XIII Cognac",
+                category: "asset",
+                description: "Luxury product visualization campaign",
+                isCarousel: true,
+                hasVimeoVideo: true,
+                videoUrl: "https://player.vimeo.com/video/940854243",
+                images: [
+                    "louis-xiii-cognac-1.jpg",
+                    "louis-xiii-cognac-2.jpg"
+                ],
+                isPro: true
+            },
+            {
+                id: 3,
+                title: "Polène Bags",
+                category: "asset",
+                description: "E-commerce 3D visualization",
+                isCarousel: true,
+                images: [
+                    "polene-bags-1.jpg",
+                    "polene-bags-2.jpg",
+                    "polene-bags-3.jpg"
+                ],
+                isPro: true
+            },
+            {
+                id: 5,
+                title: "Silent Friend",
+                category: "asset",
+                image: "silent-friend.jpg",
+                description: "Film production assets",
+                isPro: true
+            },
+            {
+                id: 11,
+                title: "Flit Spray",
+                category: "asset",
+                description: "Vintage spray pump - Maya & Mari",
+                isCarousel: true,
+                images: [
+                    "flit-1.png",
+                    "flit-2.png",
+                    "flit-3.png",
+                    "flit-4.png"
+                ]
+            },
+            {
+                id: 12,
+                title: "Military Radio",
+                category: "asset",
+                description: "Vintage military radio equipment",
+                isCarousel: true,
+                images: [
+                    "radio-1.png",
+                    "radio-2.png"
+                ]
+            },
+            {
+                id: 13,
+                title: "Royal Drum",
+                category: "asset",
+                description: "Historic military drum - Maya, Blender, Mari",
+                isCarousel: true,
+                images: [
+                    "drum-1.png",
+                    "drum-2.png"
+                ]
+            },
+            {
+                id: 14,
+                title: "Crash Helmets",
+                category: "hard-surface",
+                image: "crash-helmet.jpg",
+                description: "Vintage racing helmets collection"
+            },
+            {
+                id: 15,
+                title: "Polaroid Fangio Goggles",
+                category: "hard-surface",
+                description: "Classic racing goggles",
+                isCarousel: true,
+                images: [
+                    "polaroid-fangio-1.jpg",
+                    "polaroid-fangio-2.jpg"
+                ]
+            },
+            {
+                id: 16,
+                title: "Ratti Goggles",
+                category: "hard-surface",
+                image: "ratti-goggles.jpg",
+                description: "Vintage racing goggles"
+            },
+            {
+                id: 17,
+                title: "Steering Wheels",
+                category: "hard-surface",
+                description: "Cooper & Sparco steering wheels",
+                isCarousel: true,
+                images: [
+                    "steering-cooper-1.jpg",
+                    "steering-cooper-2.jpg",
+                    "steering-nissan.jpg"
+                ]
+            },
+            {
+                id: 18,
+                title: "Racing Tires",
+                category: "hard-surface",
+                description: "Dunlop & Bridgestone racing tires",
+                isCarousel: true,
+                images: [
+                    "tire-cooper.jpg",
+                    "tire-nissan-1.jpg",
+                    "tire-nissan-2.jpg"
+                ]
+            },
+            {
+                id: 6,
+                title: "Chanel Lipstick 3D",
+                category: "ai-creative",
+                image: "chanel-lipstick-3d.jpg",
+                description: "Base 3D Model",
+                isPro: true
+            },
+            {
+                id: 7,
+                title: "Chanel AI Variations",
+                category: "ai-creative",
+                description: "Flux AI generated variations",
+                isCarousel: true,
+                images: [
+                    "chanel-lipstick-ai.jpg",
+                    "chanel-lipstick-ai2.jpg",
+                    "chanel-lipstick-ai3.jpg"
+                ],
+                isPro: true
+            },
+            {
+                id: 19,
+                title: "John Doe",
+                category: "character",
+                description: "Character design with accessories",
+                isCarousel: true,
+                images: [
+                    "john-doe-1.jpg",
+                    "john-doe-2.jpg",
+                    "john-doe-3.jpg",
+                    "john-doe-4.jpg",
+                    "john-doe-5.jpg",
+                    "john-doe-6.jpg",
+                    "john-doe-bag.jpg",
+                    "john-doe-ring.jpg"
+                ]
+            },
+            {
+                id: 20,
+                title: "Speed Sculpture",
+                category: "character",
+                description: "Quick sculpt study",
+                isCarousel: true,
+                images: [
+                    "speed-sculpture-1.png",
+                    "speed-sculpture-2.jpg",
+                    "speed-sculpture-3.png"
+                ]
+            },
+            {
+                id: 21,
+                title: "Anatomy - Body Study",
+                category: "character",
+                description: "Full body anatomy study",
+                isCarousel: true,
+                images: [
+                    "john-doe-1.jpg",
+                    "john-doe-2.jpg",
+                    "john-doe-3.jpg"
+                ]
+            },
+            {
+                id: 22,
+                title: "Anatomy - Arms",
+                category: "character",
+                description: "Arm anatomy studies",
+                isCarousel: true,
+                images: [
+                    "study-arm-1.png",
+                    "study-arm-2.jpg",
+                    "study-arm-3.jpg"
+                ]
+            },
+            {
+                id: 23,
+                title: "Anatomy - Hands",
+                category: "character",
+                description: "Hand anatomy studies",
+                isCarousel: true,
+                images: [
+                    "study-hand-1.jpg",
+                    "study-hand-2.jpg"
+                ]
+            },
+            {
+                id: 24,
+                title: "Eye Study",
+                category: "character",
+                image: "eye-study.jpg",
+                description: "Realistic eye modeling"
+            },
+            {
+                id: 25,
+                title: "BRM P25",
+                category: "hard-surface",
+                description: "Classic F1 car - Assetto Corsa",
+                isCarousel: true,
+                images: [
+                    "brm-p25-1.jpg",
+                    "brm-p25-2.jpg",
+                    "brm-p25-3.png",
+                    "brm-p25-4.jpg"
+                ]
+            },
+            {
+                id: 26,
+                title: "Cooper T43",
+                category: "hard-surface",
+                description: "Classic F1 car - Assetto Corsa",
+                isCarousel: true,
+                images: [
+                    "cooper-t43-1.png",
+                    "cooper-t43-2.png",
+                    "cooper-t43-3.jpg",
+                    "cooper-t43-4.png"
+                ]
+            },
+            {
+                id: 27,
+                title: "Cooper T51",
+                category: "hard-surface",
+                description: "Classic F1 car - Assetto Corsa",
+                isCarousel: true,
+                images: [
+                    "cooper-t51-1.png",
+                    "cooper-t51-2.png",
+                    "cooper-t51-3.png",
+                    "cooper-t51-4.png"
+                ]
+            },
+            {
+                id: 28,
+                title: "Lotus 16",
+                category: "hard-surface",
+                description: "Classic F1 car - Assetto Corsa",
+                isCarousel: true,
+                images: [
+                    "lotus-16-1.jpg",
+                    "lotus-16-2.png",
+                    "lotus-16-3.png",
+                    "lotus-16-4.jpg"
+                ]
+            },
+            {
+                id: 29,
+                title: "Maserati 250F",
+                category: "hard-surface",
+                description: "Classic F1 car - Assetto Corsa",
+                isCarousel: true,
+                images: [
+                    "maserati-250f-1.jpg",
+                    "maserati-250f-2.jpg",
+                    "maserati-250f-3.jpg",
+                    "maserati-250f-4.jpg"
+                ]
+            },
+            {
+                id: 30,
+                title: "Nissan Leaf Nismo RC",
+                category: "hard-surface",
+                description: "Electric race car - Assetto Corsa",
+                isCarousel: true,
+                images: [
+                    "nissan-leaf-1.jpg",
+                    "nissan-leaf-2.jpg",
+                    "nissan-leaf-3.jpg",
+                    "nissan-leaf-4.jpg"
+                ]
+            },
+            {
+                id: 31,
+                title: "Subaru Legacy B4",
+                category: "hard-surface",
+                description: "Rally car - Assetto Corsa",
+                isCarousel: true,
+                images: [
+                    "subaru-legacy-1.jpg",
+                    "subaru-legacy-2.jpg",
+                    "subaru-legacy-3.jpg",
+                    "subaru-legacy-4.jpg"
+                ]
+            },
+            {
+                id: 32,
+                title: "Vanwall VW",
+                category: "hard-surface",
+                description: "Classic F1 car - Assetto Corsa",
+                isCarousel: true,
+                images: [
+                    "vanwall-vw-1.jpg",
+                    "vanwall-vw-2.jpg",
+                    "vanwall-vw-3.jpg",
+                    "vanwall-vw-4.jpg"
+                ]
+            }
+        ];
+
+        let currentFilter = 'all';
+
+        function renderGallery() {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+
+            projects
+                .filter(p => currentFilter === 'all' || p.category === currentFilter)
+                .forEach((project, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    card.style.animationDelay = `${index * 0.05}s`;
+                    
+                    const proBadge = project.isPro ? '<div class="badge-pro">Pro</div>' : '';
+                    
+                    if (project.isComparison) {
+                        card.innerHTML = `
+                            ${proBadge}
+                            <img src="${project.image}" alt="${project.title}" class="project-image">
+                            <div class="project-overlay" style="cursor: pointer;" onclick="openComparisonModal(${project.id})">
+                                <div class="project-category">${project.category}</div>
+                                <div class="project-title">${project.title}</div>
+                                <div class="project-description">${project.description}</div>
+                                <div class="play-icon">⇄ Compare Before/After</div>
+                            </div>
+                        `;
+                    } else if (project.hasVideo) {
+                        card.innerHTML = `
+                            ${proBadge}
+                            <img src="${project.image}" alt="${project.title}" class="project-image" style="cursor: pointer;" onclick="openVideoModal(${project.id})">
+                            <div class="project-overlay" onclick="openVideoModal(${project.id})">
+                                <div class="project-category">${project.category}</div>
+                                <div class="project-title">${project.title}</div>
+                                <div class="project-description">${project.description}</div>
+                                <div class="play-icon">▶ Watch Video</div>
+                            </div>
+                        `;
+                    } else if (project.isCarousel) {
+                        const slides = project.images.map(img => `
+                            <div class="carousel-slide">
+                                <img src="${img}" alt="${project.title}">
+                            </div>
+                        `).join('');
+                        
+                        const dots = project.images.map((_, i) => `
+                            <div class="carousel-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></div>
+                        `).join('');
+                        
+                        let playButton = '';
+                        let playText = '🔍 View Full Size';
+                        if (project.hasLocalVideo) {
+                            playButton = `<button class="carousel-play-btn" onclick="event.stopPropagation(); openLocalVideoModal(${project.id})">▶</button>`;
+                            playText = '▶ Watch Turntable';
+                        } else if (project.hasVimeoVideo) {
+                            playButton = `<button class="carousel-play-btn" onclick="event.stopPropagation(); openVimeoModal(${project.id})">▶</button>`;
+                            playText = '▶ Watch Video';
+                        }
+                        
+                        card.innerHTML = `
+                            ${proBadge}
+                            <div class="carousel-container" data-project-id="${project.id}">
+                                <div class="carousel-track">
+                                    ${slides}
+                                </div>
+                                <button class="carousel-btn prev" onclick="event.stopPropagation(); moveCarousel(${project.id}, -1)">‹</button>
+                                <button class="carousel-btn next" onclick="event.stopPropagation(); moveCarousel(${project.id}, 1)">›</button>
+                                ${playButton}
+                                <div class="carousel-dots">
+                                    ${dots}
+                                </div>
+                            </div>
+                            <div class="project-overlay" style="cursor: pointer;" onclick="openCarouselModal(${project.id})">
+                                <div class="project-category">${project.category}</div>
+                                <div class="project-title">${project.title}</div>
+                                <div class="project-description">${project.description}</div>
+                                <div class="play-icon">${playText}</div>
+                            </div>
+                        `;
+                    } else {
+                        card.innerHTML = `
+                            ${proBadge}
+                            <img src="${project.image}" alt="${project.title}" class="project-image">
+                            <div class="project-overlay" style="cursor: pointer;" onclick="openSingleImageModal(${project.id})">
+                                <div class="project-category">${project.category}</div>
+                                <div class="project-title">${project.title}</div>
+                                <div class="project-description">${project.description}</div>
+                                <div class="play-icon">🔍 View Full Size</div>
+                            </div>
+                        `;
+                    }
+                    gallery.appendChild(card);
+                });
+        }
+
+        // Carousel state
+        const carouselStates = {};
+
+        function moveCarousel(projectId, direction) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project || !project.isCarousel) return;
+            
+            if (!carouselStates[projectId]) {
+                carouselStates[projectId] = 0;
+            }
+            
+            const totalSlides = project.images.length;
+            carouselStates[projectId] += direction;
+            
+            if (carouselStates[projectId] < 0) {
+                carouselStates[projectId] = totalSlides - 1;
+            } else if (carouselStates[projectId] >= totalSlides) {
+                carouselStates[projectId] = 0;
+            }
+            
+            updateCarousel(projectId);
+        }
+
+        function updateCarousel(projectId) {
+            const container = document.querySelector(`.carousel-container[data-project-id="${projectId}"]`);
+            if (!container) return;
+            
+            const track = container.querySelector('.carousel-track');
+            const dots = container.querySelectorAll('.carousel-dot');
+            const currentIndex = carouselStates[projectId] || 0;
+            
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+
+        function filterProjects(category) {
+            currentFilter = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderGallery();
+        }
+
+        function scrollTo(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openComparisonModal(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            const modal = document.getElementById('comparisonModal');
+            const content = modal.querySelector('.modal-content');
+            
+            // Carrousel AI si disponible
+            let aiCarouselHTML = '';
+            if (project.hasAICarousel && project.aiImages) {
+                const aiSlides = project.aiImages.map(img => `
+                    <div class="ai-carousel-slide">
+                        <img src="${img}" alt="AI Variation">
+                    </div>
+                `).join('');
+                
+                const aiDots = project.aiImages.map((_, i) => `
+                    <div class="carousel-dot ${i === 0 ? 'active' : ''}" onclick="goToAISlide(${i})"></div>
+                `).join('');
+                
+                aiCarouselHTML = `
+                    <div class="ai-carousel-section">
+                        <h3 class="ai-carousel-title">All Variations</h3>
+                        <div class="ai-carousel-container" id="aiCarouselContainer">
+                            <div class="ai-carousel-track" id="aiCarouselTrack">
+                                ${aiSlides}
+                            </div>
+                            <button class="carousel-btn prev" onclick="moveAICarousel(-1)">‹</button>
+                            <button class="carousel-btn next" onclick="moveAICarousel(1)">›</button>
+                            <div class="carousel-dots" id="aiCarouselDots">
+                                ${aiDots}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            content.innerHTML = `
+                <button class="modal-close" onclick="closeComparisonModal()">&times;</button>
+                <div class="comparison-slider" id="comparisonSlider">
+                    <img src="${project.afterImage}" alt="After" id="afterImg">
+                    <div class="img-before" id="imgBefore">
+                        <img src="${project.beforeImage}" alt="Before" id="beforeImg">
+                    </div>
+                    <div class="img-before-label">Base 3D Model</div>
+                    <div class="img-after-label">Flux AI Variation</div>
+                    <div class="comparison-handle"></div>
+                </div>
+                ${aiCarouselHTML}
+            `;
+            
+            modal.classList.add('active');
+            
+            // Attendre que les images soient chargées
+            const beforeImg = document.getElementById('beforeImg');
+            const afterImg = document.getElementById('afterImg');
+            
+            let loadedCount = 0;
+            function onImageLoad() {
+                loadedCount++;
+                if (loadedCount === 2) {
+                    // Les deux images sont chargées, on peut initialiser
+                    const imgWidth = afterImg.offsetWidth;
+                    beforeImg.style.width = imgWidth + 'px';
+                    setupComparisonSlider();
+                }
+            }
+            
+            if (beforeImg.complete) onImageLoad();
+            else beforeImg.onload = onImageLoad;
+            
+            if (afterImg.complete) onImageLoad();
+            else afterImg.onload = onImageLoad;
+        }
+
+        function closeComparisonModal() {
+            document.getElementById('comparisonModal').classList.remove('active');
+            aiCarouselIndex = 0;
+        }
+
+        // AI Carousel
+        let aiCarouselIndex = 0;
+
+        function moveAICarousel(direction) {
+            const track = document.getElementById('aiCarouselTrack');
+            const slides = track.querySelectorAll('.ai-carousel-slide');
+            const totalSlides = slides.length;
+            
+            aiCarouselIndex += direction;
+            
+            if (aiCarouselIndex < 0) {
+                aiCarouselIndex = totalSlides - 1;
+            } else if (aiCarouselIndex >= totalSlides) {
+                aiCarouselIndex = 0;
+            }
+            
+            updateAICarousel();
+        }
+
+        function goToAISlide(index) {
+            aiCarouselIndex = index;
+            updateAICarousel();
+        }
+
+        function updateAICarousel() {
+            const track = document.getElementById('aiCarouselTrack');
+            const dots = document.querySelectorAll('#aiCarouselDots .carousel-dot');
+            
+            track.style.transform = `translateX(-${aiCarouselIndex * 100}%)`;
+            
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === aiCarouselIndex);
+            });
+        }
+
+        function openVideoModal(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project || !project.hasVideo) return;
+
+            const modal = document.getElementById('videoModal');
+            const container = document.getElementById('videoContainer');
+            
+            container.innerHTML = `
+                <iframe 
+                    src="${project.videoUrl}?autoplay=1&title=0&byline=0&portrait=0" 
+                    allow="autoplay; fullscreen; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function openVimeoModal(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project || !project.hasVimeoVideo) return;
+
+            const modal = document.getElementById('videoModal');
+            const container = document.getElementById('videoContainer');
+            
+            container.innerHTML = `
+                <iframe 
+                    src="${project.videoUrl}?autoplay=1&title=0&byline=0&portrait=0" 
+                    allow="autoplay; fullscreen; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const container = document.getElementById('videoContainer');
+            container.innerHTML = '';
+            modal.classList.remove('active');
+        }
+
+        function openLocalVideoModal(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project || !project.hasLocalVideo) return;
+
+            const modal = document.getElementById('videoModal');
+            const container = document.getElementById('videoContainer');
+            
+            container.innerHTML = `
+                <div class="local-video-container">
+                    <video controls autoplay>
+                        <source src="${project.videoFile}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        function openSingleImageModal(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project || !project.image) return;
+
+            const modal = document.getElementById('carouselModal');
+            const track = document.getElementById('modalCarouselTrack');
+            const dotsContainer = document.getElementById('modalCarouselDots');
+
+            track.innerHTML = `
+                <div class="modal-carousel-slide active">
+                    <img src="${project.image}" alt="${project.title}">
+                </div>
+            `;
+            dotsContainer.innerHTML = '';
+
+            modal.classList.add('active');
+        }
+
+        // Modal Carousel
+        let modalCarouselProjectId = null;
+        let modalCarouselIndex = 0;
+
+        function openCarouselModal(projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (!project || !project.isCarousel) return;
+
+            modalCarouselProjectId = projectId;
+            modalCarouselIndex = carouselStates[projectId] || 0;
+
+            const modal = document.getElementById('carouselModal');
+            const track = document.getElementById('modalCarouselTrack');
+            const dotsContainer = document.getElementById('modalCarouselDots');
+
+            // Créer les slides
+            track.innerHTML = project.images.map(img => `
+                <div class="carousel-slide">
+                    <img src="${img}" alt="${project.title}">
+                </div>
+            `).join('');
+
+            // Créer les dots
+            dotsContainer.innerHTML = project.images.map((_, i) => `
+                <div class="carousel-dot ${i === modalCarouselIndex ? 'active' : ''}" onclick="goToModalSlide(${i})"></div>
+            `).join('');
+
+            // Positionner sur la bonne slide
+            track.style.transform = `translateX(-${modalCarouselIndex * 100}%)`;
+
+            modal.classList.add('active');
+        }
+
+        function closeCarouselModal() {
+            document.getElementById('carouselModal').classList.remove('active');
+            modalCarouselProjectId = null;
+        }
+
+        function moveModalCarousel(direction) {
+            const project = projects.find(p => p.id === modalCarouselProjectId);
+            if (!project) return;
+
+            const totalSlides = project.images.length;
+            modalCarouselIndex += direction;
+
+            if (modalCarouselIndex < 0) {
+                modalCarouselIndex = totalSlides - 1;
+            } else if (modalCarouselIndex >= totalSlides) {
+                modalCarouselIndex = 0;
+            }
+
+            updateModalCarousel();
+        }
+
+        function goToModalSlide(index) {
+            modalCarouselIndex = index;
+            updateModalCarousel();
+        }
+
+        function updateModalCarousel() {
+            const track = document.getElementById('modalCarouselTrack');
+            const dots = document.querySelectorAll('#modalCarouselDots .carousel-dot');
+
+            track.style.transform = `translateX(-${modalCarouselIndex * 100}%)`;
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === modalCarouselIndex);
+            });
+        }
+
+        function setupComparisonSlider() {
+            const slider = document.getElementById('comparisonSlider');
+            const before = document.getElementById('imgBefore');
+            const handle = slider.querySelector('.comparison-handle');
+            
+            let isActive = false;
+
+            function updatePosition(x) {
+                const rect = slider.getBoundingClientRect();
+                let pos = x - rect.left;
+                
+                if (pos < 0) pos = 0;
+                if (pos > rect.width) pos = rect.width;
+                
+                const percent = (pos / rect.width) * 100;
+                before.style.width = percent + '%';
+                handle.style.left = percent + '%';
+            }
+
+            // Permettre de cliquer n'importe où sur le slider
+            slider.addEventListener('mousedown', (e) => {
+                isActive = true;
+                updatePosition(e.clientX);
+            });
+
+            document.addEventListener('mouseup', () => {
+                isActive = false;
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isActive) return;
+                updatePosition(e.clientX);
+            });
+
+            slider.addEventListener('touchstart', (e) => {
+                isActive = true;
+                updatePosition(e.touches[0].clientX);
+            });
+
+            document.addEventListener('touchend', () => {
+                isActive = false;
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                if (!isActive) return;
+                updatePosition(e.touches[0].clientX);
+            });
+        }
+
+        // Fermer les modals avec Escape ou clic extérieur
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeComparisonModal();
+                closeVideoModal();
+                closeCarouselModal();
+            }
+            // Flèches gauche/droite pour naviguer dans le modal carrousel
+            if (modalCarouselProjectId !== null) {
+                if (e.key === 'ArrowLeft') {
+                    moveModalCarousel(-1);
+                } else if (e.key === 'ArrowRight') {
+                    moveModalCarousel(1);
+                }
+            }
+        });
+
+        document.getElementById('videoModal').addEventListener('click', (e) => {
+            if (e.target.id === 'videoModal') {
+                closeVideoModal();
+            }
+        });
+
+        document.getElementById('comparisonModal').addEventListener('click', (e) => {
+            if (e.target.id === 'comparisonModal') {
+                closeComparisonModal();
+            }
+        });
+
+        document.getElementById('carouselModal').addEventListener('click', (e) => {
+            if (e.target.id === 'carouselModal') {
+                closeCarouselModal();
+            }
+        });
+
+        renderGallery();
+    </script>
+</body>
+</html>
+          
