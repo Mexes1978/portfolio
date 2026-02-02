@@ -625,6 +625,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
 
         .modal-carousel .carousel-slide img {
@@ -633,6 +634,13 @@
             width: auto;
             height: auto;
             object-fit: contain;
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-carousel .carousel-slide img.zoomed {
+            transform: scale(2);
+            cursor: zoom-out;
         }
 
         .modal-carousel .carousel-btn {
@@ -1074,10 +1082,10 @@
                 id: 1,
                 title: "Olympic Games 2024",
                 category: "character",
-                description: "3D Statue Modeling for Olympic Games 2024",
+                description: "3D Statue Modeling - Studio Bizaroïd",
                 isCarousel: true,
                 hasVimeoVideo: true,
-                videoUrl: "https://player.vimeo.com/video/1037748737/2759859b7c",
+                videoUrl: "https://player.vimeo.com/video/1037748737?h=2759859b7c",
                 images: [
                     "jo2024.jpg"
                 ],
@@ -1113,7 +1121,7 @@
                 id: 2,
                 title: "Louis XIII Cognac",
                 category: "asset",
-                description: "Luxury product visualization campaign",
+                description: "Luxury product visualization - Studio Werlen Meyer",
                 isCarousel: true,
                 hasVimeoVideo: true,
                 videoUrl: "https://player.vimeo.com/video/940854243",
@@ -1127,7 +1135,7 @@
                 id: 3,
                 title: "Polène Bags",
                 category: "asset",
-                description: "E-commerce 3D visualization",
+                description: "E-commerce 3D visualization - Atomic Digital Design",
                 isCarousel: true,
                 images: [
                     "polene-bags-1.jpg",
@@ -1275,6 +1283,7 @@
                 description: "Full body anatomy study",
                 isCarousel: true,
                 images: [
+                    "speed-sculpture-2.jpg",
                     "john-doe-1.jpg",
                     "john-doe-2.jpg",
                     "john-doe-3.jpg"
@@ -1385,7 +1394,11 @@
                     "nissan-leaf-1.jpg",
                     "nissan-leaf-2.jpg",
                     "nissan-leaf-3.jpg",
-                    "nissan-leaf-4.jpg"
+                    "nissan-leaf-4.jpg",
+                    "nissan-leaf-5.jpg",
+                    "nissan-leaf-6.jpg",
+                    "nissan-leaf-7.jpg",
+                    "nissan-leaf-8.jpg"
                 ]
             },
             {
@@ -1398,7 +1411,8 @@
                     "subaru-legacy-1.jpg",
                     "subaru-legacy-2.jpg",
                     "subaru-legacy-3.jpg",
-                    "subaru-legacy-4.jpg"
+                    "subaru-legacy-4.jpg",
+                    "subaru-legacy-5.jpg"
                 ]
             },
             {
@@ -1749,7 +1763,7 @@
 
             track.innerHTML = `
                 <div class="carousel-slide">
-                    <img src="${project.image}" alt="${project.title}">
+                    <img src="${project.image}" alt="${project.title}" onclick="toggleZoom(this)">
                 </div>
             `;
             dotsContainer.innerHTML = '';
@@ -1778,7 +1792,7 @@
             // Créer les slides
             track.innerHTML = project.images.map(img => `
                 <div class="carousel-slide">
-                    <img src="${img}" alt="${project.title}">
+                    <img src="${img}" alt="${project.title}" onclick="toggleZoom(this)">
                 </div>
             `).join('');
 
@@ -1793,9 +1807,17 @@
             modal.classList.add('active');
         }
 
+        function toggleZoom(img) {
+            img.classList.toggle('zoomed');
+        }
+
         function closeCarouselModal() {
             document.getElementById('carouselModal').classList.remove('active');
             modalCarouselProjectId = null;
+            // Reset zoom on all images
+            document.querySelectorAll('.modal-carousel .carousel-slide img').forEach(img => {
+                img.classList.remove('zoomed');
+            });
         }
 
         function moveModalCarousel(direction) {
