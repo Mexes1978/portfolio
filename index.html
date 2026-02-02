@@ -1077,7 +1077,7 @@
                 description: "3D Statue Modeling for Olympic Games 2024",
                 isCarousel: true,
                 hasVimeoVideo: true,
-                videoUrl: "https://player.vimeo.com/video/1037748737?h=2759859b7c",
+                videoUrl: "https://player.vimeo.com/video/1037748737/2759859b7c",
                 images: [
                     "jo2024.jpg"
                 ],
@@ -1188,21 +1188,15 @@
             },
             {
                 id: 15,
-                title: "Polaroid Fangio Goggles",
+                title: "Racing Goggles",
                 category: "hard-surface",
-                description: "Classic racing goggles",
+                description: "Polaroid Fangio & Ratti goggles",
                 isCarousel: true,
                 images: [
                     "polaroid-fangio-1.jpg",
-                    "polaroid-fangio-2.jpg"
+                    "polaroid-fangio-2.jpg",
+                    "ratti-goggles.jpg"
                 ]
-            },
-            {
-                id: 16,
-                title: "Ratti Goggles",
-                category: "hard-surface",
-                image: "ratti-goggles.jpg",
-                description: "Vintage racing goggles"
             },
             {
                 id: 17,
@@ -1231,7 +1225,7 @@
             {
                 id: 6,
                 title: "Chanel Lipstick 3D",
-                category: "ai-creative",
+                category: "asset",
                 image: "chanel-lipstick-3d.jpg",
                 description: "Base 3D Model",
                 isPro: true
@@ -1246,8 +1240,7 @@
                     "chanel-lipstick-ai.jpg",
                     "chanel-lipstick-ai2.jpg",
                     "chanel-lipstick-ai3.jpg"
-                ],
-                isPro: true
+                ]
             },
             {
                 id: 19,
@@ -1256,9 +1249,6 @@
                 description: "Character design with accessories",
                 isCarousel: true,
                 images: [
-                    "john-doe-1.jpg",
-                    "john-doe-2.jpg",
-                    "john-doe-3.jpg",
                     "john-doe-4.jpg",
                     "john-doe-5.jpg",
                     "john-doe-6.jpg",
@@ -1758,11 +1748,14 @@
             const dotsContainer = document.getElementById('modalCarouselDots');
 
             track.innerHTML = `
-                <div class="modal-carousel-slide active">
+                <div class="carousel-slide">
                     <img src="${project.image}" alt="${project.title}">
                 </div>
             `;
             dotsContainer.innerHTML = '';
+            
+            // Reset transform
+            track.style.transform = 'translateX(0)';
 
             modal.classList.add('active');
         }
