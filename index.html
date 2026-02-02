@@ -639,8 +639,13 @@
         }
 
         .modal-carousel .carousel-slide img.zoomed {
-            transform: scale(2);
-            cursor: zoom-out;
+            transform: scale(2.5);
+            cursor: grab;
+            transition: none;
+        }
+
+        .modal-carousel .carousel-slide img.zoomed.dragging {
+            cursor: grabbing;
         }
 
         .modal-carousel .carousel-btn {
@@ -1082,13 +1087,10 @@
                 id: 1,
                 title: "Olympic Games 2024",
                 category: "character",
+                image: "jo2024.jpg",
                 description: "3D Statue Modeling - Studio Bizaroïd",
-                isCarousel: true,
-                hasVimeoVideo: true,
+                hasVideo: true,
                 videoUrl: "https://player.vimeo.com/video/1037748737?h=2759859b7c",
-                images: [
-                    "jo2024.jpg"
-                ],
                 isPro: true
             },
             {
@@ -1283,7 +1285,7 @@
                 description: "Full body anatomy study",
                 isCarousel: true,
                 images: [
-                    "speed-sculpture-2.jpg",
+                    "speed-sculpture-3.png",
                     "john-doe-1.jpg",
                     "john-doe-2.jpg",
                     "john-doe-3.jpg"
@@ -1807,9 +1809,59 @@
             modal.classList.add('active');
         }
 
+        let zoomedImg = null;
+        let isPanning = false;
+        let startX, startY, scrollLeft, scrollTop;
+        let currentTranslateX = 0, currentTranslateY = 0;
+
         function toggleZoom(img) {
-            img.classList.toggle('zoomed');
+            if (img.classList.contains('zoomed')) {
+                // Dezoom
+                img.classList.remove('zoomed');
+                img.style.transform = '';
+                currentTranslateX = 0;
+                currentTranslateY = 0;
+                zoomedImg = null;
+            } else {
+                // Zoom
+                img.classList.add('zoomed');
+                currentTranslateX = 0;
+                currentTranslateY = 0;
+                img.style.transform = 'scale(2.5) translate(0px, 0px)';
+                zoomedImg = img;
+            }
         }
+
+        document.addEventListener('mousedown', function(e) {
+            if (zoomedImg && e.target === zoomedImg) {
+                isPanning = true;
+                zoomedImg.classList.add('dragging');
+                startX = e.clientX;
+                startY = e.clientY;
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (isPanning && zoomedImg) {
+                const dx = (e.clientX - startX) / 2.5;
+                const dy = (e.clientY - startY) / 2.5;
+                const newX = currentTranslateX + dx;
+                const newY = currentTranslateY + dy;
+                zoomedImg.style.transform = `scale(2.5) translate(${newX}px, ${newY}px)`;
+            }
+        });
+
+        document.addEventListener('mouseup', function(e) {
+            if (isPanning && zoomedImg) {
+                isPanning = false;
+                zoomedImg.classList.remove('dragging');
+                const dx = (e.clientX - startX) / 2.5;
+                const dy = (e.clientY - startY) / 2.5;
+                currentTranslateX += dx;
+                currentTranslateY += dy;
+            }
+        });
 
         function closeCarouselModal() {
             document.getElementById('carouselModal').classList.remove('active');
@@ -1817,7 +1869,11 @@
             // Reset zoom on all images
             document.querySelectorAll('.modal-carousel .carousel-slide img').forEach(img => {
                 img.classList.remove('zoomed');
+                img.style.transform = '';
             });
+            zoomedImg = null;
+            currentTranslateX = 0;
+            currentTranslateY = 0;
         }
 
         function moveModalCarousel(direction) {
