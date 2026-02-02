@@ -948,10 +948,10 @@
         <div class="header-content">
             <div class="logo">3D Modeler</div>
             <nav>
-                <a onclick="scrollTo('hero')">Home</a>
-                <a onclick="scrollTo('about')">About</a>
-                <a onclick="scrollTo('portfolio')">Work</a>
-                <a onclick="scrollTo('contact')">Contact</a>
+                <a href="#hero" onclick="event.preventDefault(); scrollToSection('hero')">Home</a>
+                <a href="#about" onclick="event.preventDefault(); scrollToSection('about')">About</a>
+                <a href="#portfolio" onclick="event.preventDefault(); scrollToSection('portfolio')">Work</a>
+                <a href="#contact" onclick="event.preventDefault(); scrollToSection('contact')">Contact</a>
             </nav>
         </div>
     </header>
@@ -964,8 +964,8 @@
             <div class="hero-meta">Beaux-Arts Porto • Escape Studios London • Autodesk Maya Certified</div>
             
             <div class="cta-buttons">
-                <button class="btn btn-primary" onclick="scrollTo('portfolio')">View Work</button>
-                <button class="btn btn-secondary" onclick="scrollTo('contact')">Get In Touch</button>
+                <button class="btn btn-primary" onclick="scrollToSection('portfolio')">View Work</button>
+                <button class="btn btn-secondary" onclick="scrollToSection('contact')">Get In Touch</button>
             </div>
         </div>
     </section>
@@ -1274,8 +1274,7 @@
                 isCarousel: true,
                 images: [
                     "speed-sculpture-1.png",
-                    "speed-sculpture-2.jpg",
-                    "speed-sculpture-3.png"
+                    "speed-sculpture-2.jpg"
                 ]
             },
             {
@@ -1573,9 +1572,11 @@
             renderGallery();
         }
 
-        function scrollTo(sectionId) {
+        function scrollToSection(sectionId) {
             const section = document.getElementById(sectionId);
-            section.scrollIntoView({ behavior: 'smooth' });
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         function openComparisonModal(projectId) {
@@ -1700,9 +1701,13 @@
             const modal = document.getElementById('videoModal');
             const container = document.getElementById('videoContainer');
             
+            // Ajouter les paramètres correctement (& si déjà des params, ? sinon)
+            const separator = project.videoUrl.includes('?') ? '&' : '?';
+            const videoSrc = `${project.videoUrl}${separator}autoplay=1&title=0&byline=0&portrait=0`;
+            
             container.innerHTML = `
                 <iframe 
-                    src="${project.videoUrl}?autoplay=1&title=0&byline=0&portrait=0" 
+                    src="${videoSrc}" 
                     allow="autoplay; fullscreen; picture-in-picture" 
                     allowfullscreen>
                 </iframe>
@@ -1811,10 +1816,17 @@
 
         let zoomedImg = null;
         let isPanning = false;
-        let startX, startY, scrollLeft, scrollTop;
+        let startX, startY;
         let currentTranslateX = 0, currentTranslateY = 0;
+        let hasMoved = false;
 
-        function toggleZoom(img) {
+        function toggleZoom(img, event) {
+            // Si on a bougé, ne pas toggle le zoom
+            if (hasMoved) {
+                hasMoved = false;
+                return;
+            }
+            
             if (img.classList.contains('zoomed')) {
                 // Dezoom
                 img.classList.remove('zoomed');
@@ -1835,6 +1847,7 @@
         document.addEventListener('mousedown', function(e) {
             if (zoomedImg && e.target === zoomedImg) {
                 isPanning = true;
+                hasMoved = false;
                 zoomedImg.classList.add('dragging');
                 startX = e.clientX;
                 startY = e.clientY;
@@ -1846,6 +1859,12 @@
             if (isPanning && zoomedImg) {
                 const dx = (e.clientX - startX) / 2.5;
                 const dy = (e.clientY - startY) / 2.5;
+                
+                // Marquer qu'on a bougé si mouvement significatif
+                if (Math.abs(e.clientX - startX) > 5 || Math.abs(e.clientY - startY) > 5) {
+                    hasMoved = true;
+                }
+                
                 const newX = currentTranslateX + dx;
                 const newY = currentTranslateY + dy;
                 zoomedImg.style.transform = `scale(2.5) translate(${newX}px, ${newY}px)`;
@@ -1874,6 +1893,7 @@
             zoomedImg = null;
             currentTranslateX = 0;
             currentTranslateY = 0;
+            hasMoved = false;
         }
 
         function moveModalCarousel(direction) {
